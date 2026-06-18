@@ -1,29 +1,18 @@
 """
 Дашборд продаж NIKE — Streamlit-приложение.
-
 Запуск: streamlit run app.py
-
-Анализирует квартальную выручку NIKE Brand по продуктам и регионам
-за период Q1 FY2023 — Q1 FY2026.
-
-Три аналитических блока:
-  1. Динамика продаж, сезонность и прогноз
-  2. Карта продаж по продуктам и регионам
-  3. Приоритетные направления продаж
 """
 
-import sys
-import os
-# Добавляем корень проекта в путь для импорта модулей
+import sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
+import plotly.express as px
 import logging
 
-# Импорт модулей проекта
 from src.data_loader import (
     load_data, get_sorted_periods, filter_data,
     PRODUCT_TRANSLATIONS, REGION_TRANSLATIONS,
@@ -43,555 +32,651 @@ from src.charts import (
     plot_seasonality_bar, plot_heatmap, plot_bubble_chart
 )
 
-# -----------------------------------------------------------------------
-# Конфигурация страницы — должна быть первой командой Streamlit
-# -----------------------------------------------------------------------
+# ── Конфигурация страницы ─────────────────────────────────────────────
 st.set_page_config(
-    page_title="Дашборд продаж NIKE",
-    page_icon="👟",
+    page_title="NIKE Sales Dashboard",
+    page_icon="✔",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
-# Настройка логирования
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# -----------------------------------------------------------------------
-# Кастомные стили — профессиональный BI-вид
-# -----------------------------------------------------------------------
-st.markdown("""
+# ── Стили ─────────────────────────────────────────────────────────────
+STYLES = """
 <style>
-    /* Уменьшаем отступы */
-    .block-container { padding-top: 1rem; padding-bottom: 1rem; }
-    /* KPI-карточки */
-    .kpi-card {
-        background: white;
-        border-radius: 8px;
-        padding: 16px 20px;
-        border: 1px solid #e0e0e0;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-        text-align: center;
-    }
-    .kpi-label { font-size: 12px; color: #5f6368; margin-bottom: 4px; font-weight: 500; }
-    .kpi-value { font-size: 22px; font-weight: 700; color: #202124; }
-    .kpi-delta-pos { font-size: 13px; color: #34a853; }
-    .kpi-delta-neg { font-size: 13px; color: #ea4335; }
-    .kpi-delta-neu { font-size: 13px; color: #5f6368; }
-    /* Заголовки блоков */
-    .block-header {
-        font-size: 15px;
-        font-weight: 600;
-        color: #202124;
-        border-left: 4px solid #1a73e8;
-        padding-left: 10px;
-        margin-bottom: 8px;
-    }
-    /* Предупреждения */
-    .warn-box {
-        background: #fff3cd;
-        border: 1px solid #ffc107;
-        border-radius: 6px;
-        padding: 10px 14px;
-        font-size: 13px;
-    }
+/* ── Базовые переменные ── */
+:root {
+    --nike-black:   #111111;
+    --nike-white:   #FFFFFF;
+    --nike-red:     #FA5400;
+    --card-bg:      #1A1A1A;
+    --card-border:  #2A2A2A;
+    --muted:        #888888;
+    --text-primary: #F0F0F0;
+    --text-secondary:#AAAAAA;
+    --positive:     #3DD68C;
+    --negative:     #FF4B4B;
+    --radius:       10px;
+}
+
+/* ── Фон приложения ── */
+.stApp, .main, section.main > div {
+    background-color: var(--nike-black) !important;
+}
+.stApp header { display: none !important; }
+
+/* ── Убираем стандартные отступы ── */
+.block-container {
+    padding: 0 2rem 2rem 2rem !important;
+    max-width: 1400px;
+}
+
+/* ── Шапка ── */
+.nike-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 28px 0 20px 0;
+    border-bottom: 1px solid var(--card-border);
+    margin-bottom: 24px;
+}
+.nike-logo {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--nike-white);
+    font-style: italic;
+}
+.nike-logo span { color: var(--nike-red); }
+.nike-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 2px;
+}
+.header-badge {
+    margin-left: auto;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ── KPI-карточки ── */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+.kpi-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+}
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--nike-red);
+}
+.kpi-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+.kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 6px;
+}
+.kpi-delta {
+    font-size: 13px;
+    font-weight: 600;
+}
+.kpi-delta.pos { color: var(--positive); }
+.kpi-delta.neg { color: var(--negative); }
+.kpi-delta.neu { color: var(--muted); }
+
+/* ── Секционные заголовки ── */
+.section-title {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin: 28px 0 14px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--card-border);
+}
+
+/* ── Фильтры ── */
+.filter-bar {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.filter-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    margin-right: 8px;
+}
+
+/* ── Streamlit виджеты — тёмная тема ── */
+div[data-testid="stMultiSelect"] > div > div,
+div[data-testid="stSelectSlider"] > div > div,
+div[data-testid="stSelectbox"] > div > div {
+    background-color: #222222 !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--text-primary) !important;
+    border-radius: 6px !important;
+}
+div[data-testid="stMultiSelect"] label,
+div[data-testid="stSelectbox"] label,
+div[data-testid="stSlider"] label {
+    color: var(--text-secondary) !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+/* Тэги мультиселекта */
+span[data-baseweb="tag"] {
+    background-color: var(--nike-red) !important;
+    border-radius: 4px !important;
+}
+/* Слайдер */
+div[data-testid="stSlider"] > div > div > div > div {
+    background-color: var(--nike-red) !important;
+}
+
+/* ── Вкладки ── */
+div[data-testid="stTabs"] > div > div > button {
+    color: var(--muted) !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    border-radius: 0 !important;
+    border-bottom: 2px solid transparent !important;
+    padding-bottom: 10px !important;
+}
+div[data-testid="stTabs"] > div > div > button[aria-selected="true"] {
+    color: var(--text-primary) !important;
+    border-bottom-color: var(--nike-red) !important;
+    background: transparent !important;
+}
+div[data-testid="stTabPanel"] {
+    background: transparent !important;
+    padding-top: 20px !important;
+}
+
+/* ── Блок с графиком ── */
+.chart-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+}
+.chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+.chart-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 16px;
+}
+
+/* ── Инсайт-блок ── */
+.insight-box {
+    background: linear-gradient(135deg, #1E1E1E 0%, #242424 100%);
+    border: 1px solid var(--card-border);
+    border-left: 3px solid var(--nike-red);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+.insight-box strong { color: var(--text-primary); }
+
+/* ── Полосы прогресса ── */
+.rank-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--card-border);
+}
+.rank-num {
+    font-size: 11px;
+    color: var(--muted);
+    width: 20px;
+    text-align: right;
+    font-weight: 600;
+}
+.rank-name {
+    font-size: 13px;
+    color: var(--text-primary);
+    width: 120px;
+}
+.rank-bar-wrap {
+    flex: 1;
+    background: #2A2A2A;
+    border-radius: 3px;
+    height: 6px;
+    overflow: hidden;
+}
+.rank-bar {
+    height: 100%;
+    background: var(--nike-red);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+}
+.rank-val {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    width: 70px;
+    text-align: right;
+}
+
+/* ── Скрываем лишнее в Streamlit ── */
+#MainMenu, footer, .stDeployButton { display: none !important; }
+div[data-testid="stStatusWidget"] { display: none !important; }
+
+/* ── Spinner ── */
+div[data-testid="stSpinner"] { color: var(--nike-red) !important; }
 </style>
+"""
+
+st.markdown(STYLES, unsafe_allow_html=True)
+
+# ── Утилиты цвета для Plotly ──────────────────────────────────────────
+PLOT_LAYOUT = dict(
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(0,0,0,0)",
+    font=dict(family="Inter, -apple-system, sans-serif", color="#AAAAAA", size=12),
+    margin=dict(l=10, r=10, t=30, b=10),
+    xaxis=dict(
+        gridcolor="#1E1E1E", linecolor="#2A2A2A",
+        tickfont=dict(size=11, color="#888888"),
+    ),
+    yaxis=dict(
+        gridcolor="#1E1E1E", linecolor="#2A2A2A",
+        tickfont=dict(size=11, color="#888888"),
+        zeroline=False,
+    ),
+    legend=dict(
+        bgcolor="rgba(0,0,0,0)", bordercolor="rgba(0,0,0,0)",
+        font=dict(size=11, color="#AAAAAA"),
+    ),
+    hoverlabel=dict(
+        bgcolor="#1A1A1A", bordercolor="#333333",
+        font=dict(color="#F0F0F0", size=12),
+    ),
+)
+
+def apply_dark_layout(fig, title=""):
+    fig.update_layout(**PLOT_LAYOUT, title=dict(
+        text=title, font=dict(size=14, color="#F0F0F0"), x=0, y=0.98
+    ))
+    return fig
+
+
+# ── Загрузка данных ───────────────────────────────────────────────────
+@st.cache_data(ttl=3600, show_spinner=False)
+def load_all():
+    df = load_data()
+    validate_dataset(df)
+    periods = get_sorted_periods(df)
+    forecasts = build_all_forecasts(df)
+    return df, periods, forecasts
+
+
+# ══════════════════════════════════════════════════════════════════════
+# ШАПКА
+# ══════════════════════════════════════════════════════════════════════
+st.markdown("""
+<div class="nike-header">
+  <div>
+    <div class="nike-logo">NIKE<span>.</span></div>
+    <div class="nike-subtitle">Sales Intelligence Dashboard</div>
+  </div>
+  <div class="header-badge">FY2023 – Q3 FY2026</div>
+</div>
 """, unsafe_allow_html=True)
 
 
-# -----------------------------------------------------------------------
-# Загрузка и кэширование данных
-# -----------------------------------------------------------------------
-@st.cache_data(ttl=3600)
-def get_main_data() -> pd.DataFrame:
-    """Загружает и кэширует основной датасет."""
-    return load_data()
+# ── Загрузка ──────────────────────────────────────────────────────────
+with st.spinner("Загружаем данные…"):
+    df_all, all_periods, all_forecasts = load_all()
+
+ALL_PRODUCTS_RU = sorted(df_all["product"].map(PRODUCT_TRANSLATIONS).dropna().unique())
+ALL_REGIONS_RU  = sorted(df_all["region"].map(REGION_TRANSLATIONS).dropna().unique())
+QUARTER_OPTS    = [QUARTER_LABELS_RU[p] for p in all_periods if p in QUARTER_LABELS_RU]
 
 
-@st.cache_data(ttl=3600)
-def get_all_forecasts_cached(end_period: str) -> tuple:
-    """Строит и кэширует прогнозы для заданного конечного периода."""
-    df = get_main_data()
-    # Для обучения используем все данные до выбранного периода
-    return build_all_forecasts(df, end_period)
+# ══════════════════════════════════════════════════════════════════════
+# ФИЛЬТРЫ
+# ══════════════════════════════════════════════════════════════════════
+st.markdown('<div class="section-title">Фильтры</div>', unsafe_allow_html=True)
 
+col_p, col_r, col_q = st.columns([2, 2, 3])
 
-# -----------------------------------------------------------------------
-# Загрузка данных с обработкой ошибок
-# -----------------------------------------------------------------------
+with col_p:
+    sel_products_ru = st.multiselect(
+        "Продукт", ALL_PRODUCTS_RU, default=ALL_PRODUCTS_RU, key="prod"
+    )
+with col_r:
+    sel_regions_ru = st.multiselect(
+        "Регион", ALL_REGIONS_RU, default=ALL_REGIONS_RU, key="reg"
+    )
+with col_q:
+    q_range = st.select_slider(
+        "Период", options=QUARTER_OPTS,
+        value=(QUARTER_OPTS[0], QUARTER_OPTS[-1]), key="qrange"
+    )
+
+# Применяем фильтры
+sel_products = [PRODUCT_RU_TO_EN.get(p, p) for p in (sel_products_ru or ALL_PRODUCTS_RU)]
+sel_regions  = [REGION_RU_TO_EN.get(r, r)  for r in (sel_regions_ru  or ALL_REGIONS_RU)]
+
+start_p = LABELS_TO_PERIOD.get(q_range[0], all_periods[0])
+end_p   = LABELS_TO_PERIOD.get(q_range[1], all_periods[-1])
+
 try:
-    df_full = get_main_data()
-except Exception as e:
-    st.error(f"❌ Не удалось загрузить данные: {e}")
-    st.stop()
+    i0 = all_periods.index(start_p)
+    i1 = all_periods.index(end_p)
+    sel_periods = all_periods[i0:i1+1]
+except ValueError:
+    sel_periods = all_periods
 
-# Проверка качества данных при первом запуске
-if 'validated' not in st.session_state:
-    ok, msgs = validate_dataset(df_full)
-    if not ok:
-        for msg in msgs:
-            st.warning(f"⚠️ {msg}")
-    st.session_state['validated'] = True
+df_filtered = filter_data(df_all, sel_products, sel_regions, sel_periods)
 
-# -----------------------------------------------------------------------
-# Заголовок дашборда
-# -----------------------------------------------------------------------
-col_logo, col_title = st.columns([1, 11])
-with col_title:
-    st.markdown("## Дашборд продаж NIKE")
-    st.markdown(
-        "<p style='color:#5f6368; margin-top:-12px; font-size:14px;'>"
-        "Когда, какой продукт и в каком регионе продаётся лучше? &nbsp;|&nbsp; "
-        "Анализ квартальной выручки NIKE Brand по продуктам и регионам, "
-        "1 кв. 2023 ф. г. — 1 кв. 2026 ф. г."
-        "</p>",
-        unsafe_allow_html=True
-    )
 
-st.divider()
+# ══════════════════════════════════════════════════════════════════════
+# KPI-КАРТОЧКИ
+# ══════════════════════════════════════════════════════════════════════
+kpi = get_kpi_values(df_all, df_filtered, sel_products, sel_regions, sel_periods)
 
-# -----------------------------------------------------------------------
-# Блок фильтров
-# -----------------------------------------------------------------------
-all_periods_ru = get_sorted_periods(df_full)
-all_products_ru = list(PRODUCT_TRANSLATIONS.values())
-all_regions_ru = list(REGION_TRANSLATIONS.values())
+def delta_class(v):
+    if v is None: return "neu"
+    return "pos" if v > 0 else ("neg" if v < 0 else "neu")
 
-col_f1, col_f2, col_f3 = st.columns([3, 3, 4])
+def fmt_delta(v):
+    if v is None: return "—"
+    sign = "▲" if v > 0 else "▼"
+    return f"{sign} {abs(v):.1f}%"
 
-with col_f1:
-    st.markdown("**📅 Период**")
-    fc1, fc2 = st.columns(2)
-    with fc1:
-        start_period = st.selectbox(
-            "С квартала",
-            options=all_periods_ru,
-            index=0,
-            label_visibility="collapsed",
-            key="start_period"
-        )
-    with fc2:
-        # Конечный квартал не может быть раньше начального
-        start_idx = all_periods_ru.index(start_period)
-        end_options = all_periods_ru[start_idx:]
-        end_period = st.selectbox(
-            "По квартал",
-            options=end_options,
-            index=len(end_options) - 1,
-            label_visibility="collapsed",
-            key="end_period"
-        )
+def fmt_val(v, suffix=""):
+    if v is None: return "—"
+    if v >= 1000: return f"${v/1000:.1f}B{suffix}"
+    return f"${v:.0f}M{suffix}"
 
-with col_f2:
-    st.markdown("**👟 Продукт**")
-    selected_products_ru = st.multiselect(
-        "Продукты",
-        options=all_products_ru,
-        default=all_products_ru,
-        label_visibility="collapsed",
-        key="products"
-    )
+kpi_html = f"""
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Выручка (период)</div>
+    <div class="kpi-value">{fmt_val(kpi.get('total_rev'))}</div>
+    <div class="kpi-delta {delta_class(kpi.get('rev_yoy'))}">{fmt_delta(kpi.get('rev_yoy'))} г/г</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Последний квартал</div>
+    <div class="kpi-value">{fmt_val(kpi.get('last_q_rev'))}</div>
+    <div class="kpi-delta {delta_class(kpi.get('last_q_yoy'))}">{fmt_delta(kpi.get('last_q_yoy'))} г/г</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Лучший регион</div>
+    <div class="kpi-value" style="font-size:20px;margin-top:4px">{kpi.get('top_region', '—')}</div>
+    <div class="kpi-delta neu">{fmt_val(kpi.get('top_region_rev'))}</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Лучший продукт</div>
+    <div class="kpi-value" style="font-size:20px;margin-top:4px">{kpi.get('top_product', '—')}</div>
+    <div class="kpi-delta neu">{fmt_val(kpi.get('top_product_rev'))}</div>
+  </div>
+</div>
+"""
+st.markdown(kpi_html, unsafe_allow_html=True)
 
-with col_f3:
-    st.markdown("**🌍 Регион**")
-    selected_regions_ru = st.multiselect(
-        "Регионы",
-        options=all_regions_ru,
-        default=all_regions_ru,
-        label_visibility="collapsed",
-        key="regions"
-    )
 
-# -----------------------------------------------------------------------
-# Проверка наличия выбора
-# -----------------------------------------------------------------------
-if not selected_products_ru:
-    st.warning("⚠️ Выберите хотя бы один продукт.")
-    st.stop()
+# ══════════════════════════════════════════════════════════════════════
+# ВКЛАДКИ
+# ══════════════════════════════════════════════════════════════════════
+tab1, tab2, tab3 = st.tabs(["📈  Динамика & Прогноз", "🗺  Продукты & Регионы", "🏆  Рейтинги"])
 
-if not selected_regions_ru:
-    st.warning("⚠️ Выберите хотя бы один регион.")
-    st.stop()
 
-# -----------------------------------------------------------------------
-# Фильтрация данных
-# -----------------------------------------------------------------------
-df_filtered = filter_data(
-    df_full, start_period, end_period,
-    selected_products_ru, selected_regions_ru
-)
+# ──────────────────────────────────────────────────────────────────────
+# ВКЛАДКА 1 — ДИНАМИКА
+# ──────────────────────────────────────────────────────────────────────
+with tab1:
+    col_l, col_r = st.columns([3, 2])
 
-if df_filtered.empty:
-    st.warning("⚠️ По выбранным параметрам нет данных.")
-    st.stop()
+    with col_l:
+        st.markdown('<div class="chart-title">Выручка по кварталам</div>'
+                    '<div class="chart-desc">Факт + прогноз на 4 квартала вперёд</div>',
+                    unsafe_allow_html=True)
 
-# -----------------------------------------------------------------------
-# Технические коды для прогнозирования
-# -----------------------------------------------------------------------
-products_en = [PRODUCT_RU_TO_EN.get(p, p) for p in selected_products_ru]
-regions_en  = [REGION_RU_TO_EN.get(r, r) for r in selected_regions_ru]
-end_period_code = LABELS_TO_PERIOD.get(end_period, end_period)
-all_products_en = list(PRODUCT_RU_TO_EN.values())
-all_regions_en  = list(REGION_RU_TO_EN.values())
-
-# -----------------------------------------------------------------------
-# Построение прогнозов (кэшируется по конечному периоду)
-# -----------------------------------------------------------------------
-with st.spinner("Рассчитываем прогнозы..."):
-    forecast_df, diag_df = get_all_forecasts_cached(end_period_code)
-
-# Метод прогноза (для подписей)
-if not diag_df.empty:
-    dominant_method = diag_df['forecast_method'].mode().iloc[0]
-else:
-    dominant_method = "Holt-Winters"
-
-# -----------------------------------------------------------------------
-# Агрегируем данные для графиков и KPI
-# -----------------------------------------------------------------------
-# Агрегированный датасет для выбранного среза (факт)
-agg_fact = aggregate_selected_revenue(df_filtered, df_full)
-
-# Агрегированный датасет с прогнозами (факт + прогноз)
-if not forecast_df.empty:
-    agg_with_forecast = get_aggregated_forecast(
-        forecast_df, products_en, regions_en, all_products_en, all_regions_en
-    )
-else:
-    agg_with_forecast = pd.DataFrame()
-
-# KPI-показатели
-kpi = get_kpi_values(df_filtered, df_full)
-
-# Сезонность
-seasonal_summary = get_seasonal_summary(df_filtered, df_full)
-
-# -----------------------------------------------------------------------
-# KPI-карточки
-# -----------------------------------------------------------------------
-st.markdown("---")
-kc1, kc2, kc3, kc4 = st.columns(4)
-
-def fmt_revenue(v):
-    if v is None or (isinstance(v, float) and np.isnan(v)):
-        return "н/д"
-    return f"${v:,.0f} млн"
-
-def fmt_pct(v, sign=True):
-    if v is None or (isinstance(v, float) and np.isnan(v)):
-        return "н/д"
-    prefix = "+" if sign and v > 0 else ""
-    return f"{prefix}{v:.1f}%"
-
-with kc1:
-    rev = kpi.get('revenue')
-    st.markdown(f"""
-    <div class="kpi-card">
-        <div class="kpi-label">💰 Выручка (последний квартал)</div>
-        <div class="kpi-value">{fmt_revenue(rev)}</div>
-        <div class="kpi-delta-neu">выбранный срез</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with kc2:
-    yoy = kpi.get('yoy_pct')
-    delta_class = "kpi-delta-pos" if yoy and yoy > 0 else ("kpi-delta-neg" if yoy and yoy < 0 else "kpi-delta-neu")
-    st.markdown(f"""
-    <div class="kpi-card">
-        <div class="kpi-label">📈 Рост год к году</div>
-        <div class="kpi-value">{fmt_pct(yoy)}</div>
-        <div class="{delta_class}">vs аналогичный квартал год назад</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with kc3:
-    share = kpi.get('share_pct')
-    st.markdown(f"""
-    <div class="kpi-card">
-        <div class="kpi-label">🥧 Доля</div>
-        <div class="kpi-value">{fmt_pct(share, sign=False)}</div>
-        <div class="kpi-delta-neu">в анализируемой выручке NIKE Brand</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with kc4:
-    bq = kpi.get('best_quarter')
-    bq_avg = kpi.get('best_quarter_avg')
-    bq_label = f"{bq} кв. — {fmt_revenue(bq_avg)} в среднем" if bq else "н/д"
-    st.markdown(f"""
-    <div class="kpi-card">
-        <div class="kpi-label">⭐ Лучший квартал</div>
-        <div class="kpi-value" style="font-size:18px;">{bq_label}</div>
-        <div class="kpi-delta-neu">по средней исторической выручке</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("---")
-
-# ═══════════════════════════════════════════════════════════════════════
-# БЛОК 1: ДИНАМИКА ПРОДАЖ, СЕЗОННОСТЬ И ПРОГНОЗ
-# ═══════════════════════════════════════════════════════════════════════
-st.markdown('<div class="block-header">Блок 1 — Динамика продаж, сезонность и прогноз</div>',
-            unsafe_allow_html=True)
-
-b1_col1, b1_col2 = st.columns([6, 4])
-
-with b1_col1:
-    # Прогноз выручки
-    if not agg_with_forecast.empty:
-        fig_rev = plot_revenue_forecast(agg_with_forecast, dominant_method)
-        st.plotly_chart(fig_rev, use_container_width=True, config={'displayModeBar': False})
-    else:
-        st.info("Прогноз недоступен — недостаточно данных.")
-
-    # Прогноз доли
-    if not agg_with_forecast.empty:
-        fig_share = plot_share_forecast(agg_with_forecast, dominant_method)
-        st.plotly_chart(fig_share, use_container_width=True, config={'displayModeBar': False})
-
-with b1_col2:
-    # Сезонность — столбчатая диаграмма
-    if not seasonal_summary.empty:
-        fig_seas = plot_seasonality_bar(seasonal_summary)
-        st.plotly_chart(fig_seas, use_container_width=True, config={'displayModeBar': False})
-
-    # Таблица сезонности
-    if not seasonal_summary.empty:
-        st.markdown("**Сезонность по кварталам**")
-        seas_display = seasonal_summary[[
-            'quarter_label', 'avg_revenue_usd_mn', 'seasonal_index',
-            'best_product_ru', 'best_region_ru'
-        ]].copy()
-        seas_display.columns = [
-            'Квартал', 'Средняя выручка, млн $', 'Сезонный индекс',
-            'Лучший продукт', 'Лучший регион'
-        ]
-        seas_display['Средняя выручка, млн $'] = seas_display['Средняя выручка, млн $'].apply(
-            lambda x: f"${x:,.0f}"
-        )
-        seas_display['Сезонный индекс'] = seas_display['Сезонный индекс'].apply(
-            lambda x: f"{x:.2f}"
-        )
-        # Выделяем лучший квартал
-        def highlight_best(row):
-            q_idx = seas_display['Квартал'].tolist().index(row['Квартал'])
-            if seasonal_summary.iloc[q_idx]['is_best']:
-                return ['background-color: #e8f0fe'] * len(row)
-            return [''] * len(row)
-
-        st.dataframe(
-            seas_display,
-            use_container_width=True,
-            hide_index=True,
-            height=180,
-        )
-
-    # Автоматический вывод
-    if not seasonal_summary.empty:
-        insight_text = get_best_quarter_text(seasonal_summary)
-        st.info(insight_text)
-
-    # Предупреждение если мало данных для обучения
-    n_periods = df_filtered['fiscal_period'].nunique()
-    if n_periods < 8:
-        st.warning(
-            f"⚠️ Для обучения доступно {n_periods} кварталов (< 8). "
-            "Используется резервный сезонный наивный метод."
-        )
-
-st.markdown("---")
-
-# ═══════════════════════════════════════════════════════════════════════
-# БЛОКИ 2 и 3: КАРТА ПРОДАЖ + ПРИОРИТЕТНЫЕ НАПРАВЛЕНИЯ
-# ═══════════════════════════════════════════════════════════════════════
-b2_col, b3_col = st.columns([5, 5])
-
-# ----------------------------------------------------------
-# БЛОК 2: КАРТА ПРОДАЖ ПО ПРОДУКТАМ И РЕГИОНАМ
-# ----------------------------------------------------------
-with b2_col:
-    st.markdown('<div class="block-header">Блок 2 — Карта продаж по продуктам и регионам</div>',
-                unsafe_allow_html=True)
-
-    fig_heat = plot_heatmap(df_filtered)
-    st.plotly_chart(fig_heat, use_container_width=True, config={'displayModeBar': False})
-
-    # Автоматический вывод о лучшем направлении
-    if not df_filtered.empty:
-        best_combo = (df_filtered.groupby(['product_ru', 'region_ru'])
-                     ['revenue_usd_mn'].sum().idxmax())
-        best_val = (df_filtered.groupby(['product_ru', 'region_ru'])
-                   ['revenue_usd_mn'].sum().max())
-        st.markdown(
-            f"📌 **Наибольшая выручка** за выбранный период приходится на "
-            f"«**{best_combo[0]}**» в регионе «**{best_combo[1]}**» — "
-            f"${best_val:,.0f} млн"
-        )
-
-# ----------------------------------------------------------
-# БЛОК 3: ПРИОРИТЕТНЫЕ НАПРАВЛЕНИЯ ПРОДАЖ
-# ----------------------------------------------------------
-with b3_col:
-    st.markdown('<div class="block-header">Блок 3 — Приоритетные направления продаж</div>',
-                unsafe_allow_html=True)
-
-    result = plot_bubble_chart(df_filtered)
-    if isinstance(result, tuple):
-        fig_bubble, last_q_df = result
-        st.plotly_chart(fig_bubble, use_container_width=True, config={'displayModeBar': False})
-
-        # Автоматические выводы
-        if not last_q_df.empty:
-            # Направление с максимальной выручкой
-            top_rev_row = last_q_df.loc[last_q_df['revenue_usd_mn'].idxmax()]
-            st.markdown(
-                f"💰 **Макс. выручка:** «{top_rev_row['product_ru']}» / "
-                f"«{top_rev_row['region_ru'].split(',')[0]}» — "
-                f"${top_rev_row['revenue_usd_mn']:,.0f} млн"
+        try:
+            agg_ts, agg_fc = get_aggregated_forecast(
+                df_all, all_forecasts, sel_products, sel_regions, sel_periods
             )
+            fig_rev = plot_revenue_forecast(agg_ts, agg_fc)
+            apply_dark_layout(fig_rev)
+            fig_rev.update_traces(
+                selector=dict(mode="lines+markers"),
+                line=dict(color="#FA5400", width=2),
+                marker=dict(color="#FA5400", size=5),
+            )
+            st.plotly_chart(fig_rev, use_container_width=True, config={"displayModeBar": False})
+        except Exception as e:
+            logger.warning(f"Forecast chart error: {e}")
+            st.info("График прогноза недоступен для текущего выбора.")
 
-            # Направление с максимальным ростом
-            if last_q_df['yoy_growth'].notna().any():
-                top_growth_row = last_q_df.loc[last_q_df['yoy_growth'].idxmax()]
-                growth_val = top_growth_row['yoy_growth']
-                sign = "+" if growth_val > 0 else ""
-                st.markdown(
-                    f"📈 **Макс. рост:** «{top_growth_row['product_ru']}» / "
-                    f"«{top_growth_row['region_ru'].split(',')[0]}» — "
-                    f"{sign}{growth_val:.1f}%"
+    with col_r:
+        st.markdown('<div class="chart-title">Сезонность</div>'
+                    '<div class="chart-desc">Средний квартальный индекс</div>',
+                    unsafe_allow_html=True)
+
+        try:
+            seas = calculate_seasonality(df_filtered)
+            fig_seas = plot_seasonality_bar(seas)
+            apply_dark_layout(fig_seas)
+            fig_seas.update_traces(marker_color="#FA5400", opacity=0.85)
+            st.plotly_chart(fig_seas, use_container_width=True, config={"displayModeBar": False})
+
+            best_q = get_best_quarter_text(seas)
+            seas_sum = get_seasonal_summary(seas)
+            st.markdown(
+                f'<div class="insight-box">'
+                f'<strong>Пик продаж:</strong> {best_q}<br>'
+                f'{seas_sum}'
+                f'</div>',
+                unsafe_allow_html=True
+            )
+        except Exception as e:
+            logger.warning(f"Seasonality chart error: {e}")
+            st.info("Данные сезонности недоступны.")
+
+
+# ──────────────────────────────────────────────────────────────────────
+# ВКЛАДКА 2 — ТЕПЛОВАЯ КАРТА
+# ──────────────────────────────────────────────────────────────────────
+with tab2:
+    col_l2, col_r2 = st.columns([3, 2])
+
+    with col_l2:
+        st.markdown('<div class="chart-title">Тепловая карта: продукт × регион</div>'
+                    '<div class="chart-desc">Суммарная выручка в $млн за выбранный период</div>',
+                    unsafe_allow_html=True)
+        try:
+            fig_heat = plot_heatmap(df_filtered)
+            apply_dark_layout(fig_heat)
+            # Меняем цветовую шкалу на красную
+            fig_heat.update_traces(
+                colorscale=[[0, "#1A1A1A"], [0.5, "#7A2A00"], [1, "#FA5400"]],
+            )
+            st.plotly_chart(fig_heat, use_container_width=True, config={"displayModeBar": False})
+        except Exception as e:
+            logger.warning(f"Heatmap error: {e}")
+            st.info("Тепловая карта недоступна.")
+
+    with col_r2:
+        st.markdown('<div class="chart-title">Структура выручки</div>'
+                    '<div class="chart-desc">Доля продуктов по регионам</div>',
+                    unsafe_allow_html=True)
+        try:
+            fig_share = plot_share_forecast(df_filtered)
+            apply_dark_layout(fig_share)
+            st.plotly_chart(fig_share, use_container_width=True, config={"displayModeBar": False})
+        except Exception as e:
+            logger.warning(f"Share chart error: {e}")
+            # Fallback: простая pie-диаграмма
+            try:
+                prod_data = (
+                    df_filtered.groupby("product")["revenue_usd_mn"]
+                    .sum().reset_index()
+                    .rename(columns={"product": "p", "revenue_usd_mn": "rev"})
                 )
+                prod_data["p"] = prod_data["p"].map(PRODUCT_TRANSLATIONS).fillna(prod_data["p"])
+                fig_pie = go.Figure(go.Pie(
+                    labels=prod_data["p"], values=prod_data["rev"],
+                    hole=0.55,
+                    marker=dict(colors=["#FA5400", "#C84300", "#8B2F00", "#5A1F00"]),
+                    textfont=dict(color="#F0F0F0", size=11),
+                ))
+                apply_dark_layout(fig_pie)
+                st.plotly_chart(fig_pie, use_container_width=True, config={"displayModeBar": False})
+            except Exception:
+                st.info("Данные для диаграммы недоступны.")
 
-            # Приоритетные направления (высокая выручка + высокий рост)
-            if last_q_df['yoy_growth'].notna().any():
-                median_rev = last_q_df['revenue_usd_mn'].median()
-                median_growth = last_q_df['yoy_growth'].median()
-                priority = last_q_df[
-                    (last_q_df['revenue_usd_mn'] > median_rev) &
-                    (last_q_df['yoy_growth'] > median_growth)
-                ]
-                if not priority.empty:
-                    priority_names = [
-                        f"«{r['product_ru']} / {r['region_ru'].split(',')[0]}»"
-                        for _, r in priority.iterrows()
-                    ]
-                    st.markdown(
-                        f"⭐ **Приоритетные направления:** {', '.join(priority_names)}"
-                    )
-    else:
-        st.info("Пузырьковая диаграмма: выберите несколько продуктов и регионов.")
 
-st.markdown("---")
+# ──────────────────────────────────────────────────────────────────────
+# ВКЛАДКА 3 — РЕЙТИНГИ
+# ──────────────────────────────────────────────────────────────────────
+with tab3:
+    col_a, col_b = st.columns(2)
 
-# ═══════════════════════════════════════════════════════════════════════
-# ДОКУМЕНТАЦИЯ ВНУТРИ ДАШБОРДА
-# ═══════════════════════════════════════════════════════════════════════
-with st.expander("📚 Методология, данные и ограничения"):
-    tab1, tab2, tab3, tab4 = st.tabs([
-        "Данные", "Методология", "Прогноз", "Ограничения"
-    ])
+    def render_ranking(df, group_col, label_map, title, desc):
+        ranked = (
+            df.groupby(group_col)["revenue_usd_mn"]
+            .sum()
+            .reset_index()
+            .sort_values("revenue_usd_mn", ascending=False)
+        )
+        ranked["label"] = ranked[group_col].map(label_map).fillna(ranked[group_col])
+        total = ranked["revenue_usd_mn"].sum() or 1
+        max_val = ranked["revenue_usd_mn"].max() or 1
 
-    with tab1:
-        st.markdown("""
-**Источники данных**
+        rows = ""
+        for i, row in enumerate(ranked.itertuples(), 1):
+            pct_bar = row.revenue_usd_mn / max_val * 100
+            val_str = f"${row.revenue_usd_mn/1000:.2f}B" if row.revenue_usd_mn >= 1000 else f"${row.revenue_usd_mn:.0f}M"
+            rows += f"""
+            <div class="rank-item">
+              <div class="rank-num">{i:02d}</div>
+              <div class="rank-name">{row.label}</div>
+              <div class="rank-bar-wrap">
+                <div class="rank-bar" style="width:{pct_bar:.1f}%"></div>
+              </div>
+              <div class="rank-val">{val_str}</div>
+            </div>"""
 
-Использованы исключительно приложенные локальные отчёты NIKE (PDF):
-- 13 квартальных пресс-релизов за Q1 FY2023 — Q1 FY2026
-- 3 годовых 10-K отчёта (FY2023, FY2024, FY2025) — для перекрёстной проверки
+        st.markdown(
+            f'<div class="chart-card">'
+            f'<div class="chart-title">{title}</div>'
+            f'<div class="chart-desc">{desc}</div>'
+            f'{rows}'
+            f'</div>',
+            unsafe_allow_html=True
+        )
 
-**Период анализа:** Q1 FY2023 (кв. завершён 31.08.2022) — Q1 FY2026 (кв. завершён 31.08.2025)
+    with col_a:
+        render_ranking(
+            df_filtered, "region",
+            {v: k_ru for k_ru, v in REGION_RU_TO_EN.items()},
+            "Регионы по выручке",
+            "Суммарная за выбранный период"
+        )
 
-**Финансовый год NIKE** не совпадает с календарным:
-- Q1: июнь — август
-- Q2: сентябрь — ноябрь
-- Q3: декабрь — февраль
-- Q4: март — май
+    with col_b:
+        render_ranking(
+            df_filtered, "product",
+            {v: k_ru for k_ru, v in PRODUCT_RU_TO_EN.items()},
+            "Продукты по выручке",
+            "Суммарная за выбранный период"
+        )
 
-**Детализация:** 3 продукта × 4 региона × 13 кварталов = **156 наблюдений**
+    # Дополнительный graf — bubble chart
+    st.markdown('<div class="section-title">Детальный анализ</div>', unsafe_allow_html=True)
+    try:
+        fig_bub = plot_bubble_chart(df_filtered)
+        apply_dark_layout(fig_bub)
+        st.plotly_chart(fig_bub, use_container_width=True, config={"displayModeBar": False})
+    except Exception as e:
+        logger.warning(f"Bubble chart error: {e}")
 
-**Продукты:** Обувь (Footwear), Одежда (Apparel), Экипировка (Equipment)
+        # Fallback: bar chart регионы × продукты
+        try:
+            pivot = df_filtered.groupby(["region", "product"])["revenue_usd_mn"].sum().reset_index()
+            pivot["region_ru"] = pivot["region"].map(REGION_TRANSLATIONS).fillna(pivot["region"])
+            pivot["product_ru"] = pivot["product"].map(PRODUCT_TRANSLATIONS).fillna(pivot["product"])
+            colors = ["#FA5400", "#C84300", "#8B2F00", "#5A1F00"]
+            fig_bar = go.Figure()
+            for i, prod in enumerate(pivot["product_ru"].unique()):
+                sub = pivot[pivot["product_ru"] == prod]
+                fig_bar.add_bar(
+                    name=prod, x=sub["region_ru"], y=sub["revenue_usd_mn"],
+                    marker_color=colors[i % len(colors)],
+                )
+            fig_bar.update_layout(barmode="group", **PLOT_LAYOUT)
+            st.plotly_chart(fig_bar, use_container_width=True, config={"displayModeBar": False})
+        except Exception:
+            st.info("Детальный анализ недоступен.")
 
-**Регионы:** Северная Америка, Европа/Ближний Восток/Африка, Большой Китай, АТР и Латинская Америка
 
-**Единица измерения:** млн долларов США (отчётная)
-
-**Исключено:** Converse, Corporate, Global Brand Divisions
-        """)
-
-    with tab2:
-        st.markdown("""
-**Извлечение данных**
-
-PDF-файлы содержат страницы в виде растровых изображений (не текст).
-Данные извлечены путём визуальной инспекции рендеренных страниц (PyMuPDF).
-Каждое значение верифицировано по итоговой строке региона в таблице DIVISIONAL REVENUES.
-Расчётных значений нет — все 156 наблюдений получены напрямую из отчётов.
-
-**Расчёт показателей**
-
-- **Доля направления** = выручка направления / сумма всех 12 направлений × 100%
-- **Рост год к году** = (выручка Q[t] / выручка Q[t-4] − 1) × 100%
-- При агрегации нескольких направлений сначала суммируется выручка, затем рассчитываются производные
-
-**Методология сезонности**
-
-1. Для каждого сочетания продукт × регион рассчитывается средняя выручка в Q1, Q2, Q3, Q4
-2. Сезонный индекс = средняя выручка в квартале / средняя выручка за все кварталы
-3. Индекс > 1: квартал исторически сильнее среднего; < 1: слабее
-4. Определяется лучший квартал для каждого сочетания и для выбранного среза
-        """)
-
-    with tab3:
-        st.markdown("""
-**Методология прогноза**
-
-Прогнозируется **каждое из 12 направлений** отдельно (3 × 4), что позволяет:
-- сохранить индивидуальную сезонность каждого направления
-- корректно применять фильтры
-- агрегировать прогнозы в любом сочетании
-
-**Основная модель:** Holt-Winters (ExponentialSmoothing)
-- Аддитивный тренд + аддитивная сезонность
-- Сезонный период: 4 квартала
-- Горизонт прогноза: 4 квартала
-- Сезонная компонента включена в модель — добавлять сезонный индекс повторно нельзя
-
-**Резервный метод:** Сезонный наивный прогноз
-- Применяется если: < 8 наблюдений, неположительные значения или Holt-Winters проигрывает
-- Прогноз Q(t) = факт Q(t−4)
-
-**Выбор модели:** простая временна́я проверка — исключаем последние 4 квартала,
-обучаем на ранних данных, сравниваем MAE Holt-Winters и сезонного наивного метода.
-
-**Прогноз выбранной выручки** = сумма прогнозов выбранных направлений
-
-**Прогноз доли** = прогноз выбранной выручки / прогноз общей выручки × 100%
-(не независимая линия, а расчёт на основе прогнозов всех 12 рядов)
-
-*Прогнозы носят учебный характер.*
-        """)
-
-    with tab4:
-        st.markdown("""
-**Ограничения анализа**
-
-- Доступно только **13 кварталов** — ограниченная история для обучения моделей
-- **Прогноз носит учебный характер** — не является инвестиционной рекомендацией
-- Анализируется **выручка**, а не прибыль или рентабельность
-- **Converse** и прочие направления исключены из анализа
-- **Совместная прибыльность** продукта по регионам публично не раскрывается
-- Результаты зависят от **качества приложенных отчётов** и точности извлечения
-- Сезонность оценивается на ограниченной истории (3 наблюдения на квартал)
-- Макроэкономические факторы (курсы валют, рецессии) в модели не учитываются
-- После применения фильтров число наблюдений для обучения может сократиться
-        """)
-
-# -----------------------------------------------------------------------
-# Подвал с технической информацией
-# -----------------------------------------------------------------------
-st.markdown(
-    "<p style='text-align:center; color:#9aa0a6; font-size:11px; margin-top:20px;'>"
-    "Дашборд продаж NIKE | Учебный проект | Данные: локальные отчёты NIKE FY2023–FY2026 | "
-    "Стек: Python · Streamlit · Plotly · Statsmodels"
-    "</p>",
-    unsafe_allow_html=True
-)
+# ── Подвал ────────────────────────────────────────────────────────────
+st.markdown("""
+<div style="margin-top:32px;padding-top:20px;border-top:1px solid #2A2A2A;
+            display:flex;justify-content:space-between;align-items:center;">
+  <span style="color:#555;font-size:11px;letter-spacing:1px;text-transform:uppercase">
+    NIKE, Inc. · Quarterly Sales Data · FY2023–Q3 FY2026
+  </span>
+  <span style="color:#555;font-size:11px">
+    Источник: NIKE Press Releases & 10-K Filings
+  </span>
+</div>
+""", unsafe_allow_html=True)
