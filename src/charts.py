@@ -108,10 +108,19 @@ def plot_revenue_forecast(
             line_dash="dot",
             line_color=DIVIDER_COLOR,
             line_width=2,
-            annotation_text="Начало прогноза",
-            annotation_position="top right",
-            annotation_font_size=11,
-            annotation_font_color=DIVIDER_COLOR,
+        )
+        # Добавляем подпись отдельно — annotation_font_color не поддерживается в старых версиях Plotly
+        fig.add_annotation(
+            x=last_actual_label,
+            y=1,
+            yref="paper",
+            text="Начало прогноза",
+            showarrow=False,
+            xanchor="left",
+            font=dict(size=11, color=DIVIDER_COLOR),
+            bgcolor="white",
+            bordercolor=DIVIDER_COLOR,
+            borderwidth=1,
         )
 
     fig.update_layout(
