@@ -1,0 +1,157 @@
+fiscal_year,fiscal_quarter,fiscal_period,quarter_end_date,period_order,region,region_ru,product,product_ru,revenue_usd_mn,total_analyzed_revenue_usd_mn,revenue_share_pct,revenue_yoy_growth_pct,is_calculated,source_file
+2023,1,Q1 FY2023,2022-08-31,0,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,413.0,12034.0,3.43,,False,FY23Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,1,Q1 FY2023,2022-08-31,0,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,58.0,12034.0,0.48,,False,FY23Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,1,Q1 FY2023,2022-08-31,0,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1064.0,12034.0,8.84,,False,FY23Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,1,Q1 FY2023,2022-08-31,0,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,1153.0,12034.0,9.58,,False,FY23Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,1,Q1 FY2023,2022-08-31,0,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,168.0,12034.0,1.4,,False,FY23Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,1,Q1 FY2023,2022-08-31,0,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,2012.0,12034.0,16.72,,False,FY23Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,1,Q1 FY2023,2022-08-31,0,Greater China,Большой Китай,Apparel,Одежда,374.0,12034.0,3.11,,False,FY23Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,1,Q1 FY2023,2022-08-31,0,Greater China,Большой Китай,Equipment,Экипировка,49.0,12034.0,0.41,,False,FY23Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,1,Q1 FY2023,2022-08-31,0,Greater China,Большой Китай,Footwear,Обувь,1233.0,12034.0,10.25,,False,FY23Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,1,Q1 FY2023,2022-08-31,0,North America,Северная Америка,Apparel,Одежда,1494.0,12034.0,12.41,,False,FY23Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,1,Q1 FY2023,2022-08-31,0,North America,Северная Америка,Equipment,Экипировка,211.0,12034.0,1.75,,False,FY23Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,1,Q1 FY2023,2022-08-31,0,North America,Северная Америка,Footwear,Обувь,3805.0,12034.0,31.62,,False,FY23Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,2,Q2 FY2023,2022-11-30,1,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,435.0,12706.0,3.42,,False,FY23Q2CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,2,Q2 FY2023,2022-11-30,1,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,56.0,12706.0,0.44,,False,FY23Q2CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,2,Q2 FY2023,2022-11-30,1,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1108.0,12706.0,8.72,,False,FY23Q2CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,2,Q2 FY2023,2022-11-30,1,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,1281.0,12706.0,10.08,,False,FY23Q2CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,2,Q2 FY2023,2022-11-30,1,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,145.0,12706.0,1.14,,False,FY23Q2CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,2,Q2 FY2023,2022-11-30,1,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,2063.0,12706.0,16.24,,False,FY23Q2CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,2,Q2 FY2023,2022-11-30,1,Greater China,Большой Китай,Apparel,Одежда,393.0,12706.0,3.09,,False,FY23Q2CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,2,Q2 FY2023,2022-11-30,1,Greater China,Большой Китай,Equipment,Экипировка,25.0,12706.0,0.2,,False,FY23Q2CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,2,Q2 FY2023,2022-11-30,1,Greater China,Большой Китай,Footwear,Обувь,1370.0,12706.0,10.78,,False,FY23Q2CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,2,Q2 FY2023,2022-11-30,1,North America,Северная Америка,Apparel,Одежда,1685.0,12706.0,13.26,,False,FY23Q2CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,2,Q2 FY2023,2022-11-30,1,North America,Северная Америка,Equipment,Экипировка,182.0,12706.0,1.43,,False,FY23Q2CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,2,Q2 FY2023,2022-11-30,1,North America,Северная Америка,Footwear,Обувь,3963.0,12706.0,31.19,,False,FY23Q2CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,3,Q3 FY2023,2023-02-28,2,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,407.0,11754.0,3.46,,False,FY23Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,3,Q3 FY2023,2023-02-28,2,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,53.0,11754.0,0.45,,False,FY23Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,3,Q3 FY2023,2023-02-28,2,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1141.0,11754.0,9.71,,False,FY23Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,3,Q3 FY2023,2023-02-28,2,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,1094.0,11754.0,9.31,,False,FY23Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,3,Q3 FY2023,2023-02-28,2,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,141.0,11754.0,1.2,,False,FY23Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,3,Q3 FY2023,2023-02-28,2,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,2011.0,11754.0,17.11,,False,FY23Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,3,Q3 FY2023,2023-02-28,2,Greater China,Большой Китай,Apparel,Одежда,461.0,11754.0,3.92,,False,FY23Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,3,Q3 FY2023,2023-02-28,2,Greater China,Большой Китай,Equipment,Экипировка,37.0,11754.0,0.31,,False,FY23Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,3,Q3 FY2023,2023-02-28,2,Greater China,Большой Китай,Footwear,Обувь,1496.0,11754.0,12.73,,False,FY23Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,3,Q3 FY2023,2023-02-28,2,North America,Северная Америка,Apparel,Одежда,1419.0,11754.0,12.07,,False,FY23Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,3,Q3 FY2023,2023-02-28,2,North America,Северная Америка,Equipment,Экипировка,172.0,11754.0,1.46,,False,FY23Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,3,Q3 FY2023,2023-02-28,2,North America,Северная Америка,Footwear,Обувь,3322.0,11754.0,28.26,,False,FY23Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,4,Q4 FY2023,2023-05-31,3,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,409.0,12211.0,3.35,,False,FY23Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,4,Q4 FY2023,2023-05-31,3,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,57.0,12211.0,0.47,,False,FY23Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,4,Q4 FY2023,2023-05-31,3,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1230.0,12211.0,10.07,,False,FY23Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,4,Q4 FY2023,2023-05-31,3,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,1038.0,12211.0,8.5,,False,FY23Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,4,Q4 FY2023,2023-05-31,3,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,138.0,12211.0,1.13,,False,FY23Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,4,Q4 FY2023,2023-05-31,3,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,2174.0,12211.0,17.8,,False,FY23Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,4,Q4 FY2023,2023-05-31,3,Greater China,Большой Китай,Apparel,Одежда,438.0,12211.0,3.59,,False,FY23Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,4,Q4 FY2023,2023-05-31,3,Greater China,Большой Китай,Equipment,Экипировка,36.0,12211.0,0.29,,False,FY23Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,4,Q4 FY2023,2023-05-31,3,Greater China,Большой Китай,Footwear,Обувь,1336.0,12211.0,10.94,,False,FY23Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,4,Q4 FY2023,2023-05-31,3,North America,Северная Америка,Apparel,Одежда,1349.0,12211.0,11.05,,False,FY23Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,4,Q4 FY2023,2023-05-31,3,North America,Северная Америка,Equipment,Экипировка,199.0,12211.0,1.63,,False,FY23Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2023,4,Q4 FY2023,2023-05-31,3,North America,Северная Америка,Footwear,Обувь,3807.0,12211.0,31.18,,False,FY23Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,1,Q1 FY2024,2023-08-31,4,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,371.0,12340.0,3.01,-10.17,False,FY24Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,1,Q1 FY2024,2023-08-31,4,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,60.0,12340.0,0.49,3.45,False,FY24Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,1,Q1 FY2024,2023-08-31,4,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1141.0,12340.0,9.25,7.24,False,FY24Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,1,Q1 FY2024,2023-08-31,4,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,1137.0,12340.0,9.21,-1.39,False,FY24Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,1,Q1 FY2024,2023-08-31,4,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,213.0,12340.0,1.73,26.79,False,FY24Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,1,Q1 FY2024,2023-08-31,4,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,2260.0,12340.0,18.31,12.33,False,FY24Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,1,Q1 FY2024,2023-08-31,4,Greater China,Большой Китай,Apparel,Одежда,401.0,12340.0,3.25,7.22,False,FY24Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,1,Q1 FY2024,2023-08-31,4,Greater China,Большой Китай,Equipment,Экипировка,47.0,12340.0,0.38,-4.08,False,FY24Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,1,Q1 FY2024,2023-08-31,4,Greater China,Большой Китай,Footwear,Обувь,1287.0,12340.0,10.43,4.38,False,FY24Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,1,Q1 FY2024,2023-08-31,4,North America,Северная Америка,Apparel,Одежда,1479.0,12340.0,11.99,-1.0,False,FY24Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,1,Q1 FY2024,2023-08-31,4,North America,Северная Америка,Equipment,Экипировка,211.0,12340.0,1.71,0.0,False,FY24Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,1,Q1 FY2024,2023-08-31,4,North America,Северная Америка,Footwear,Обувь,3733.0,12340.0,30.25,-1.89,False,FY24Q1CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,2,Q2 FY2024,2023-11-30,5,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,437.0,12860.0,3.4,0.46,False,FY24Q2CombinedSchedulesFINAL.pdf
+2024,2,Q2 FY2024,2023-11-30,5,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,65.0,12860.0,0.51,16.07,False,FY24Q2CombinedSchedulesFINAL.pdf
+2024,2,Q2 FY2024,2023-11-30,5,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1303.0,12860.0,10.13,17.6,False,FY24Q2CombinedSchedulesFINAL.pdf
+2024,2,Q2 FY2024,2023-11-30,5,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,1200.0,12860.0,9.33,-6.32,False,FY24Q2CombinedSchedulesFINAL.pdf
+2024,2,Q2 FY2024,2023-11-30,5,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,181.0,12860.0,1.41,24.83,False,FY24Q2CombinedSchedulesFINAL.pdf
+2024,2,Q2 FY2024,2023-11-30,5,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,2186.0,12860.0,17.0,5.96,False,FY24Q2CombinedSchedulesFINAL.pdf
+2024,2,Q2 FY2024,2023-11-30,5,Greater China,Большой Китай,Apparel,Одежда,469.0,12860.0,3.65,19.34,False,FY24Q2CombinedSchedulesFINAL.pdf
+2024,2,Q2 FY2024,2023-11-30,5,Greater China,Большой Китай,Equipment,Экипировка,33.0,12860.0,0.26,32.0,False,FY24Q2CombinedSchedulesFINAL.pdf
+2024,2,Q2 FY2024,2023-11-30,5,Greater China,Большой Китай,Footwear,Обувь,1361.0,12860.0,10.58,-0.66,False,FY24Q2CombinedSchedulesFINAL.pdf
+2024,2,Q2 FY2024,2023-11-30,5,North America,Северная Америка,Apparel,Одежда,1668.0,12860.0,12.97,-1.01,False,FY24Q2CombinedSchedulesFINAL.pdf
+2024,2,Q2 FY2024,2023-11-30,5,North America,Северная Америка,Equipment,Экипировка,200.0,12860.0,1.56,9.89,False,FY24Q2CombinedSchedulesFINAL.pdf
+2024,2,Q2 FY2024,2023-11-30,5,North America,Северная Америка,Footwear,Обувь,3757.0,12860.0,29.21,-5.2,False,FY24Q2CombinedSchedulesFINAL.pdf
+2024,3,Q3 FY2024,2024-02-29,6,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,390.0,11939.0,3.27,-4.18,False,FY24Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,3,Q3 FY2024,2024-02-29,6,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,62.0,11939.0,0.52,16.98,False,FY24Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,3,Q3 FY2024,2024-02-29,6,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1195.0,11939.0,10.01,4.73,False,FY24Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,3,Q3 FY2024,2024-02-29,6,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,994.0,11939.0,8.33,-9.14,False,FY24Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,3,Q3 FY2024,2024-02-29,6,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,184.0,11939.0,1.54,30.5,False,FY24Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,3,Q3 FY2024,2024-02-29,6,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,1960.0,11939.0,16.42,-2.54,False,FY24Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,3,Q3 FY2024,2024-02-29,6,Greater China,Большой Китай,Apparel,Одежда,498.0,11939.0,4.17,8.03,False,FY24Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,3,Q3 FY2024,2024-02-29,6,Greater China,Большой Китай,Equipment,Экипировка,39.0,11939.0,0.33,5.41,False,FY24Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,3,Q3 FY2024,2024-02-29,6,Greater China,Большой Китай,Footwear,Обувь,1547.0,11939.0,12.96,3.41,False,FY24Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,3,Q3 FY2024,2024-02-29,6,North America,Северная Америка,Apparel,Одежда,1408.0,11939.0,11.79,-0.78,False,FY24Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,3,Q3 FY2024,2024-02-29,6,North America,Северная Америка,Equipment,Экипировка,202.0,11939.0,1.69,17.44,False,FY24Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,3,Q3 FY2024,2024-02-29,6,North America,Северная Америка,Footwear,Обувь,3460.0,11939.0,28.98,4.15,False,FY24Q3CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,4,Q4 FY2024,2024-05-31,7,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,416.0,12138.0,3.43,1.71,False,FY24Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,4,Q4 FY2024,2024-05-31,7,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,63.0,12138.0,0.52,10.53,False,FY24Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,4,Q4 FY2024,2024-05-31,7,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1226.0,12138.0,10.1,-0.33,False,FY24Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,4,Q4 FY2024,2024-05-31,7,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,1049.0,12138.0,8.64,1.06,False,FY24Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,4,Q4 FY2024,2024-05-31,7,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,176.0,12138.0,1.45,27.54,False,FY24Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,4,Q4 FY2024,2024-05-31,7,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,2067.0,12138.0,17.03,-4.92,False,FY24Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,4,Q4 FY2024,2024-05-31,7,Greater China,Большой Китай,Apparel,Одежда,460.0,12138.0,3.79,5.02,False,FY24Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,4,Q4 FY2024,2024-05-31,7,Greater China,Большой Китай,Equipment,Экипировка,46.0,12138.0,0.38,27.78,False,FY24Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,4,Q4 FY2024,2024-05-31,7,Greater China,Большой Китай,Footwear,Обувь,1357.0,12138.0,11.18,1.57,False,FY24Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,4,Q4 FY2024,2024-05-31,7,North America,Северная Америка,Apparel,Одежда,1398.0,12138.0,11.52,3.63,False,FY24Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,4,Q4 FY2024,2024-05-31,7,North America,Северная Америка,Equipment,Экипировка,293.0,12138.0,2.41,47.24,False,FY24Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2024,4,Q4 FY2024,2024-05-31,7,North America,Северная Америка,Footwear,Обувь,3587.0,12138.0,29.55,-5.78,False,FY24Q4CombinedNIKEPressReleaseSchedulesFINAL.pdf
+2025,1,Q1 FY2025,2024-08-31,8,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,348.0,11097.0,3.14,-6.2,False,Q125PressReleaseFINAL.pdf
+2025,1,Q1 FY2025,2024-08-31,8,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,62.0,11097.0,0.56,3.33,False,Q125PressReleaseFINAL.pdf
+2025,1,Q1 FY2025,2024-08-31,8,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1052.0,11097.0,9.48,-7.8,False,Q125PressReleaseFINAL.pdf
+2025,1,Q1 FY2025,2024-08-31,8,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,993.0,11097.0,8.95,-12.66,False,Q125PressReleaseFINAL.pdf
+2025,1,Q1 FY2025,2024-08-31,8,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,198.0,11097.0,1.78,-7.04,False,Q125PressReleaseFINAL.pdf
+2025,1,Q1 FY2025,2024-08-31,8,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,1952.0,11097.0,17.59,-13.63,False,Q125PressReleaseFINAL.pdf
+2025,1,Q1 FY2025,2024-08-31,8,Greater China,Большой Китай,Apparel,Одежда,360.0,11097.0,3.24,-10.22,False,Q125PressReleaseFINAL.pdf
+2025,1,Q1 FY2025,2024-08-31,8,Greater China,Большой Китай,Equipment,Экипировка,60.0,11097.0,0.54,27.66,False,Q125PressReleaseFINAL.pdf
+2025,1,Q1 FY2025,2024-08-31,8,Greater China,Большой Китай,Footwear,Обувь,1246.0,11097.0,11.23,-3.19,False,Q125PressReleaseFINAL.pdf
+2025,1,Q1 FY2025,2024-08-31,8,North America,Северная Америка,Apparel,Одежда,1331.0,11097.0,11.99,-10.01,False,Q125PressReleaseFINAL.pdf
+2025,1,Q1 FY2025,2024-08-31,8,North America,Северная Америка,Equipment,Экипировка,283.0,11097.0,2.55,34.12,False,Q125PressReleaseFINAL.pdf
+2025,1,Q1 FY2025,2024-08-31,8,North America,Северная Америка,Footwear,Обувь,3212.0,11097.0,28.94,-13.96,False,Q125PressReleaseFINAL.pdf
+2025,2,Q2 FY2025,2024-11-30,9,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,437.0,11937.0,3.66,0.0,False,Q225PressReleaseFINAL.pdf
+2025,2,Q2 FY2025,2024-11-30,9,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,73.0,11937.0,0.61,12.31,False,Q225PressReleaseFINAL.pdf
+2025,2,Q2 FY2025,2024-11-30,9,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1234.0,11937.0,10.34,-5.3,False,Q225PressReleaseFINAL.pdf
+2025,2,Q2 FY2025,2024-11-30,9,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,1136.0,11937.0,9.52,-5.33,False,Q225PressReleaseFINAL.pdf
+2025,2,Q2 FY2025,2024-11-30,9,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,185.0,11937.0,1.55,2.21,False,Q225PressReleaseFINAL.pdf
+2025,2,Q2 FY2025,2024-11-30,9,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,1982.0,11937.0,16.6,-9.33,False,Q225PressReleaseFINAL.pdf
+2025,2,Q2 FY2025,2024-11-30,9,Greater China,Большой Китай,Apparel,Одежда,472.0,11937.0,3.95,0.64,False,Q225PressReleaseFINAL.pdf
+2025,2,Q2 FY2025,2024-11-30,9,Greater China,Большой Китай,Equipment,Экипировка,36.0,11937.0,0.3,9.09,False,Q225PressReleaseFINAL.pdf
+2025,2,Q2 FY2025,2024-11-30,9,Greater China,Большой Китай,Footwear,Обувь,1203.0,11937.0,10.08,-11.61,False,Q225PressReleaseFINAL.pdf
+2025,2,Q2 FY2025,2024-11-30,9,North America,Северная Америка,Apparel,Одежда,1693.0,11937.0,14.18,1.5,False,Q225PressReleaseFINAL.pdf
+2025,2,Q2 FY2025,2024-11-30,9,North America,Северная Америка,Equipment,Экипировка,250.0,11937.0,2.09,25.0,False,Q225PressReleaseFINAL.pdf
+2025,2,Q2 FY2025,2024-11-30,9,North America,Северная Америка,Footwear,Обувь,3236.0,11937.0,27.11,-13.87,False,Q225PressReleaseFINAL.pdf
+2025,3,Q3 FY2025,2025-02-28,10,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,358.0,10878.0,3.29,-8.21,False,Q325PressReleaseFINAL.pdf
+2025,3,Q3 FY2025,2025-02-28,10,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,60.0,10878.0,0.55,-3.23,False,Q325PressReleaseFINAL.pdf
+2025,3,Q3 FY2025,2025-02-28,10,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1052.0,10878.0,9.67,-11.97,False,Q325PressReleaseFINAL.pdf
+2025,3,Q3 FY2025,2025-02-28,10,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,913.0,10878.0,8.39,-8.15,False,Q325PressReleaseFINAL.pdf
+2025,3,Q3 FY2025,2025-02-28,10,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,156.0,10878.0,1.43,-15.22,False,Q325PressReleaseFINAL.pdf
+2025,3,Q3 FY2025,2025-02-28,10,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,1742.0,10878.0,16.01,-11.12,False,Q325PressReleaseFINAL.pdf
+2025,3,Q3 FY2025,2025-02-28,10,Greater China,Большой Китай,Apparel,Одежда,412.0,10878.0,3.79,-17.27,False,Q325PressReleaseFINAL.pdf
+2025,3,Q3 FY2025,2025-02-28,10,Greater China,Большой Китай,Equipment,Экипировка,39.0,10878.0,0.36,0.0,False,Q325PressReleaseFINAL.pdf
+2025,3,Q3 FY2025,2025-02-28,10,Greater China,Большой Китай,Footwear,Обувь,1282.0,10878.0,11.79,-17.13,False,Q325PressReleaseFINAL.pdf
+2025,3,Q3 FY2025,2025-02-28,10,North America,Северная Америка,Apparel,Одежда,1510.0,10878.0,13.88,7.24,False,Q325PressReleaseFINAL.pdf
+2025,3,Q3 FY2025,2025-02-28,10,North America,Северная Америка,Equipment,Экипировка,222.0,10878.0,2.04,9.9,False,Q325PressReleaseFINAL.pdf
+2025,3,Q3 FY2025,2025-02-28,10,North America,Северная Америка,Footwear,Обувь,3132.0,10878.0,28.79,-9.48,False,Q325PressReleaseFINAL.pdf
+2025,4,Q4 FY2025,2025-05-31,11,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,398.0,10754.0,3.7,-4.33,False,Q4FY25_CombinedTables.pdf
+2025,4,Q4 FY2025,2025-05-31,11,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,63.0,10754.0,0.59,0.0,False,Q4FY25_CombinedTables.pdf
+2025,4,Q4 FY2025,2025-05-31,11,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1114.0,10754.0,10.36,-9.14,False,Q4FY25_CombinedTables.pdf
+2025,4,Q4 FY2025,2025-05-31,11,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,929.0,10754.0,8.64,-11.44,False,Q4FY25_CombinedTables.pdf
+2025,4,Q4 FY2025,2025-05-31,11,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,178.0,10754.0,1.66,1.14,False,Q4FY25_CombinedTables.pdf
+2025,4,Q4 FY2025,2025-05-31,11,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,1893.0,10754.0,17.6,-8.42,False,Q4FY25_CombinedTables.pdf
+2025,4,Q4 FY2025,2025-05-31,11,Greater China,Большой Китай,Apparel,Одежда,372.0,10754.0,3.46,-19.13,False,Q4FY25_CombinedTables.pdf
+2025,4,Q4 FY2025,2025-05-31,11,Greater China,Большой Китай,Equipment,Экипировка,30.0,10754.0,0.28,-34.78,False,Q4FY25_CombinedTables.pdf
+2025,4,Q4 FY2025,2025-05-31,11,Greater China,Большой Китай,Footwear,Обувь,1074.0,10754.0,9.99,-20.85,False,Q4FY25_CombinedTables.pdf
+2025,4,Q4 FY2025,2025-05-31,11,North America,Северная Америка,Apparel,Одежда,1303.0,10754.0,12.12,-6.8,False,Q4FY25_CombinedTables.pdf
+2025,4,Q4 FY2025,2025-05-31,11,North America,Северная Америка,Equipment,Экипировка,296.0,10754.0,2.75,1.02,False,Q4FY25_CombinedTables.pdf
+2025,4,Q4 FY2025,2025-05-31,11,North America,Северная Америка,Footwear,Обувь,3104.0,10754.0,28.86,-13.47,False,Q4FY25_CombinedTables.pdf
+2026,1,Q1 FY2026,2025-08-31,12,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Apparel,Одежда,371.0,11353.0,3.27,6.61,False,Q12026PressRelease93025Tables.pdf
+2026,1,Q1 FY2026,2025-08-31,12,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Equipment,Экипировка,58.0,11353.0,0.51,-6.45,False,Q12026PressRelease93025Tables.pdf
+2026,1,Q1 FY2026,2025-08-31,12,APLA,Азиатско-Тихоокеанский регион и Латинская Америка,Footwear,Обувь,1061.0,11353.0,9.35,0.86,False,Q12026PressRelease93025Tables.pdf
+2026,1,Q1 FY2026,2025-08-31,12,EMEA,"Европа, Ближний Восток и Африка",Apparel,Одежда,1106.0,11353.0,9.74,11.38,False,Q12026PressRelease93025Tables.pdf
+2026,1,Q1 FY2026,2025-08-31,12,EMEA,"Европа, Ближний Восток и Африка",Equipment,Экипировка,204.0,11353.0,1.8,3.03,False,Q12026PressRelease93025Tables.pdf
+2026,1,Q1 FY2026,2025-08-31,12,EMEA,"Европа, Ближний Восток и Африка",Footwear,Обувь,2021.0,11353.0,17.8,3.53,False,Q12026PressRelease93025Tables.pdf
+2026,1,Q1 FY2026,2025-08-31,12,Greater China,Большой Китай,Apparel,Одежда,362.0,11353.0,3.19,0.56,False,Q12026PressRelease93025Tables.pdf
+2026,1,Q1 FY2026,2025-08-31,12,Greater China,Большой Китай,Equipment,Экипировка,41.0,11353.0,0.36,-31.67,False,Q12026PressRelease93025Tables.pdf
+2026,1,Q1 FY2026,2025-08-31,12,Greater China,Большой Китай,Footwear,Обувь,1109.0,11353.0,9.77,-11.0,False,Q12026PressRelease93025Tables.pdf
+2026,1,Q1 FY2026,2025-08-31,12,North America,Северная Америка,Apparel,Одежда,1474.0,11353.0,12.98,10.74,False,Q12026PressRelease93025Tables.pdf
+2026,1,Q1 FY2026,2025-08-31,12,North America,Северная Америка,Equipment,Экипировка,327.0,11353.0,2.88,15.55,False,Q12026PressRelease93025Tables.pdf
+2026,1,Q1 FY2026,2025-08-31,12,North America,Северная Америка,Footwear,Обувь,3219.0,11353.0,28.35,0.22,False,Q12026PressRelease93025Tables.pdf
